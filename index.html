@@ -2,67 +2,123 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>My Gamedev Canvas Workshop</title>
-    <style type="text/css">
-    * {
-        padding: 0;
-        margin: 0;
-    }
-    
-    canvas {
-        background: #eee;
-        display: block;
-        margin: 100px auto 0 auto;
-    }
-    </style>
+  <meta charset="utf-8" />
+  <title>My Gamedev Canvas Workshop</title>
+  <style type="text/css">
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  
+  canvas {
+    background: #eee;
+    display: block;
+    margin: 100px auto 0 auto;
+  }
+  </style>
 </head>
 
 <body>
-    <canvas id="myCanvas" width="480" height="320"></canvas>
-    <script type="text/javascript">
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+  <canvas id="myCanvas" width="480" height="320"></canvas>
+  <script type="text/javascript">
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
 
-    var x = canvas.width / 2;
-    var y = canvas.height - 30;
-    var dx = 2;
-    var dy = -2;
-    var ballRadius = 10;
-    var fillStyle = "#0095DD"
-    var cssColorNames = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+  var x = canvas.width / 2;
+  var y = canvas.height - 30;
+  var dx = 2;
+  var dy = -2;
+  var ballRadius = 10;
+  var fillStyle = "#0095DD"
+  var cssColorNames = ["AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
 
-    function rndBallcolor(){
-      var random = Math.floor(Math.random() * cssColorNames.length)
-      fillStyle = cssColorNames[random]
-      return fillStyle;
+  // Setting variable definitions for the paddle
+  var paddleHeight = 10;
+  var paddleWidth = 75;
+  var paddleX = (canvas.width - paddleWidth) / 2;
+
+  // Setting variables for paddle control
+  var rightPressed = false;
+  var leftPressed = false;
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener('keyup', keyUpHandler, false);
+
+  function keyDownHandler(e) {
+    if (e.keyCode == 39) {
+      rightPressed = true;
+    } else if (e.keyCode == 37) {
+      leftPressed = true;
+    }
+  }
+
+  function keyUpHandler(e) {
+    if (e.keyCode == 39) {
+      rightPressed = false;
+    } else if (e.keyCode == 37) {
+      leftPressed = false;
+    }
+  }
+
+  function drawBall() {
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleWidth, paddleHeight)
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    drawPaddle()
+    x += dx;
+    y += dy;
+
+    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+      dx = -dx;
+      rndBallcolor();
     }
 
-    function drawBall() {
-        ctx.beginPath();
-        ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = fillStyle;
-        ctx.fill();
-        ctx.closePath();
+    if (y + dy < ballRadius) {
+      dy = -dy;
+      rndBallcolor();
+    } else if (y + dy > canvas.height - ballRadius) {
+      if (x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy;
+        // dx *= 1.2 // Increase speed with each hit
+        // dy *= 1.2 // Increase speed each hit
+      } else {
+        alert('Game Over')
+        document.location.reload()
+      }
     }
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBall();
-        x += dx;
-        y += dy;
-
-        if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-            dx = -dx;
-            rndBallcolor();
-        }
-        if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-            dy = -dy;
-            rndBallcolor();
-        }
+    if (rightPressed && paddleX < canvas.width - paddleWidth) {
+      paddleX += 7;
     }
-    setInterval(draw, 10);
-    </script>
+    if (leftPressed && paddleX > 0) {
+      paddleX -= 7;
+    }
+
+  }
+
+  //  Return a random css color style for the ball on each bounce of the wall
+  function rndBallcolor() {
+    // var random = Math.floor(Math.random() * cssColorNames.length)
+    // fillStyle = cssColorNames[random]
+    return fillStyle = cssColorNames[Math.floor(Math.random() * cssColorNames.length)];
+  }
+
+  setInterval(draw, 10);
+  </script>
 </body>
 
 </html>
