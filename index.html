@@ -82,6 +82,13 @@
     }
   }
 
+  function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width){
+      paddleX = relativeX - paddleWidth/2;
+    }
+  }
+
   function collisionDetection() {
     for (c = 0; c < brickColumnCount; c++) {
       for (r = 0; r < brickRowCount; r++) {
@@ -172,13 +179,13 @@
       }
     }
 
-    if (rightPressed && paddleX < canvas.width - paddleWidth) {
+    if (rightPressed && paddleX < canvas.width - paddleWidth/2) {
       paddleX += 7;
     }
-    if (leftPressed && paddleX > 0) {
+    if (leftPressed && paddleX > 0 - paddleWidth/2) {
       paddleX -= 7;
     }
-
+    requestAnimationFrame(draw);
   }
 
   //  Return a random css color style for the ball on each bounce of the wall
@@ -193,7 +200,9 @@
     paddleFillStyle = cssColorNames[Math.floor(Math.random() * cssColorNames.length)];
   }
 
-  setInterval(draw, 10);
+  document.addEventListener('mousemove', mouseMoveHandler, false);
+  
+  draw();
   </script>
 </body>
 
