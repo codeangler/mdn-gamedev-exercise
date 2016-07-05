@@ -23,13 +23,14 @@
   <script type="text/javascript">
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
-
+  var score = 0;
   var x = canvas.width / 2;
   var y = canvas.height - 30;
   var dx = 2;
   var dy = -2;
   var ballRadius = 10;
-  var fillStyle = "#0095DD"
+  var paddleFillStyle = "#0095DD"
+  var ballFillStyle = "#0095DD"
   var cssColorNames = ["AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
 
   // Setting the brick dimensions
@@ -89,10 +90,22 @@
           if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
             dy = -dy;
             b.status = 0;
+            score++;
+            if (score == brickRowCount * brickColumnCount) {
+              confirm (` You Won! \nCongrulations, your score was : ${score}`);
+              document.location.reload();
+            }
+            rndPaddleColor();
           }
         }
       }
     }
+  }
+
+  function drawScore() {
+    ctx.font = '16px Arial';
+    ctx.fillStyle = "#0090DD";
+    ctx.fillText("Score: " + score, 8, 20)
   }
   // Drawing Bricks, Ball, Paddle
   function drawBricks() {
@@ -116,7 +129,7 @@
   function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = fillStyle;
+    ctx.fillStyle = ballFillStyle;
     ctx.fill();
     ctx.closePath();
   }
@@ -124,7 +137,7 @@
   function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleWidth, paddleHeight)
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = paddleFillStyle;
     ctx.fill();
     ctx.closePath();
   }
@@ -132,20 +145,22 @@
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
-    drawPaddle()
+    drawPaddle();
     drawBricks();
-    collisionDetection()
+    collisionDetection();
+    drawScore();
+
     x += dx;
     y += dy;
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
       dx = -dx;
-      rndBallcolor();
+      rndBallColor();
     }
 
     if (y + dy < ballRadius) {
       dy = -dy;
-      rndBallcolor();
+      rndBallColor();
     } else if (y + dy > canvas.height - ballRadius) {
       if (x > paddleX && x < paddleX + paddleWidth) {
         dy = -dy;
@@ -167,10 +182,15 @@
   }
 
   //  Return a random css color style for the ball on each bounce of the wall
-  function rndBallcolor() {
+  function rndBallColor() {
     // var random = Math.floor(Math.random() * cssColorNames.length)
     // fillStyle = cssColorNames[random]
-    return fillStyle = cssColorNames[Math.floor(Math.random() * cssColorNames.length)];
+    ballFillStyle = cssColorNames[Math.floor(Math.random() * cssColorNames.length)];
+
+  }
+
+  function rndPaddleColor() {
+    paddleFillStyle = cssColorNames[Math.floor(Math.random() * cssColorNames.length)];
   }
 
   setInterval(draw, 10);
